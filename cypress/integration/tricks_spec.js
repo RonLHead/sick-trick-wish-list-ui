@@ -21,5 +21,17 @@ describe('Homepage flow', () => {
                 .contains('Obstacle: flat ground')
             .get('a')
                 .contains('https://www.youtube.com/watch?v=XGw3YkQmNig')
+    });
+
+    it('Should be able to add correct input in controlled form', () => {
+        cy.visit('http://localhost:3000/')
+            .get('select[name="stance"]')
+                .select('Regular')
+            .get('input[name="name"]')
+                .type('New Trick')
+            .get('select[name="obstacle"]')
+                .select('Stairs')
+            .get('input[name="tutorial"]')
+                .type('link url')
     })
 })

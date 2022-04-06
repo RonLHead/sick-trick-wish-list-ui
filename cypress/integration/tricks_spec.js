@@ -33,5 +33,20 @@ describe('Homepage flow', () => {
                 .select('Stairs')
             .get('input[name="tutorial"]')
                 .type('link url')
-    })
+    });
+
+    it('Should be able to submit new trick through controlled form', () => {
+        cy.visit('http://localhost:3000/')
+            .get('select[name="stance"]')
+                .select('Regular')
+            .get('input[name="name"]')
+                .type('New Trick')
+            .get('select[name="obstacle"]')
+                .select('Stairs')
+            .get('input[name="tutorial"]')
+                .type('link url')
+            .get('button').click()
+            .get('p')
+                .contains('regular New Trick')
+    });
 })

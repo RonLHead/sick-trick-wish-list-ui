@@ -1,0 +1,52 @@
+describe('Homepage flow', () => {
+    it('Should be able to visit the page and render the correct elements', () => {
+        cy.visit('http://localhost:3000/')
+            .contains('Sick Trick Wish List')
+            .get('form')
+                .get('select')
+                    .contains('Choose your Stance')
+                .get('input')
+                .get('select')
+                    .contains('Choose your Obstacle')
+                .get('input')
+                .get('button')
+                    .contains('Send it!').click()
+            .get('div')
+                .should('have.class', 'tricks-container')
+            .get('div')
+                .should('have.class', 'trick-card')
+            .get('p')
+                .contains('regular treflip')
+            .get('p')
+                .contains('Obstacle: flat ground')
+            .get('a')
+                .contains('https://www.youtube.com/watch?v=XGw3YkQmNig')
+    });
+
+    it('Should be able to add correct input in controlled form', () => {
+        cy.visit('http://localhost:3000/')
+            .get('select[name="stance"]')
+                .select('Regular')
+            .get('input[name="name"]')
+                .type('New Trick')
+            .get('select[name="obstacle"]')
+                .select('Stairs')
+            .get('input[name="tutorial"]')
+                .type('link url')
+    });
+
+    it('Should be able to submit new trick through controlled form', () => {
+        cy.visit('http://localhost:3000/')
+            .get('select[name="stance"]')
+                .select('Regular')
+            .get('input[name="name"]')
+                .type('New Trick')
+            .get('select[name="obstacle"]')
+                .select('Stairs')
+            .get('input[name="tutorial"]')
+                .type('link url')
+            .get('button').click()
+            .get('p')
+                .contains('regular New Trick')
+    });
+})
